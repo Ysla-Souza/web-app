@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilo geral do corpo e HTML */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Impede a rolagem horizontal */
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: #F8F5F5;
+    color: #5f4b8b;
+    box-sizing: border-box; /* Inclui padding e bordas no cálculo da largura */
+}
+
+/* Estilo da seção de boas-vindas */
+.welcome-section {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: #F8F5F5;
+    margin-top: 230px;
+    margin-bottom: 40px;
+}
+
+.welcome-section h2 {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #CA6CE5;
+    font-weight: normal; /* Remove o negrito do título */
+}
+
+.welcome-section p {
+    margin: 0 auto; /* Centraliza o parágrafo */
+    max-width: 590px; /* Define um limite para a largura do parágrafo */
+    font-size: 25px;
+    color: #CA6CE5;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold; /* Deixa o texto em negrito */
+}
+
+/* Estilos para o texto central */
+.texto-central {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #7c3aed;
+}
+
+  /* global.css */
+.loader {
+    width: 80px;
+    height: 40px;
+    background:
+      radial-gradient(circle 11px at top, #0000 94%, #b0e5f3) 0 20px,
+      radial-gradient(circle 11px at top, #0000 94%, #5dc1e4) 0 10px,
+      radial-gradient(circle 11px at top, #0000 94%, #008cd9) 0 0;
+    background-size: 20px 100%;
+    background-repeat: repeat-x;
+    animation: l7 1s infinite linear;
+  }
+  
+  @keyframes l7 {
+    50%  { background-position: 10px 15px, -10px 12px, 15px 8px; }
+    100% { background-position: 20px 20px, -20px 10px, 20px 0px; }
+  }
+  

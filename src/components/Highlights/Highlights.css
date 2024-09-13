@@ -1,0 +1,62 @@
+/* src/components/Highlights/Highlights.css */
+.highlights {
+  display: flex;
+  justify-content: center; /* Alinha os itens ao centro */
+  flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte se necessário */
+  gap: 20px; /* Espaçamento entre os itens */
+  padding: 10px;
+  width: 100%; /* Ajusta a largura do contêiner para 100% */
+
+}
+/* Estilo da seção de destaques */
+.highlights-section {
+  padding-top: 10px; /* Ajusta o padding superior */
+  margin-top: -30px;  /* Reduz o margin superior para mover a seção ainda mais para cima */
+  position: relative;
+}
+
+.highlights h2 {
+  text-align: center; /* Centraliza o texto do título */
+  width: 100%; /* Garante que o título ocupe toda a largura do contêiner */
+  margin-bottom: 20px; /* Adiciona um espaço entre o título e os itens */
+  font-size: 21px; /* Ajuste do tamanho da fonte para dar mais destaque */
+  font-weight: normal; /* Garante que o texto não esteja em negrito */
+  font-family: 'Times New Roman', serif;
+  color: #c77dfa;
+  margin-left: -50px; /* Move o título para a esquerda */
+
+}
+
+.highlight-item {
+  display: flex;
+  flex-direction: column; /* Muda a direção dos itens para coluna */
+  align-items: center; /* Alinha os itens ao centro horizontalmente */
+  width: 300px; /* Define a largura dos itens */
+  border: none; /* Remove a borda */
+  background-color: transparent; /* Remove a cor de fundo */
+
+}
+
+.highlight-image {
+  width: 260px; /* Largura das imagens */
+  height: 250px; /* Altura das imagens */
+  object-fit: cover; /* Ajusta a imagem para cobrir o contêiner */
+  margin-right: 10%; /* Espaçamento entre a imagem e a descrição */
+}
+
+.highlight-info {
+  margin-right: 10%; /* Espaçamento entre a imagem e a descrição */
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-info h3 {
+  margin: 0;
+  font-size: 14px; /* Tamanho da fonte */
+}
+
+.highlight-info p {
+  margin: 5px 0 0;
+  font-size: 12px; /* Tamanho da fonte */
+  color: #333;
+}

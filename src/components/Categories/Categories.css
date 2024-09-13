@@ -1,0 +1,53 @@
+/* src/components/Categories/Categories.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* Exemplo de importação de fonte */
+
+.categories {
+    display: flex;
+    justify-content: center; /* Alinha os itens ao centro */
+    flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte se necessário */
+    gap: 20px; /* Espaçamento entre os itens */
+    padding: 10px;
+    width: 100%; /* Ajusta a largura do contêiner para 100% */
+    margin-top: 50px; /* Adiciona espaço acima da seção de categorias */
+
+}
+  
+  .categories h2 {
+    text-align: center; /* Centraliza o texto do título */
+    width: 100%; /* Garante que o título ocupe toda a largura do contêiner */
+    margin-bottom: 20px; /* Adiciona um espaço entre o título e os itens */
+    font-size: 21px; /* Ajuste do tamanho da fonte para dar mais destaque */
+    font-weight: normal; /* Garante que o texto não esteja em negrito */
+    font-family: 'Times New Roman', serif;
+    color: #c77dfa;
+
+}
+  
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espaçamento maior entre os itens */
+  }
+  
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: #333;
+    width: 200px; /* Aumenta a largura dos itens */
+  }
+  
+  .category-image {
+    width: 100%; /* Ajusta a largura da imagem ao contêiner */
+    height: 200px; /* Define uma altura maior para as imagens */
+    object-fit: cover; /* Ajusta a imagem para cobrir o contêiner mantendo a proporção */
+    border-radius: 4px;
+  }
+  
