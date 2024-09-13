@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { storage } from '../firebase/firebase'; // Ajuste o caminho conforme necessário
+import { storage } from '../firebase/firebase'; 
 
 const UserContext = createContext();
 
@@ -17,7 +17,7 @@ const UserProvider = ({ children }) => {
 
       if (currentUser) {
         try {
-          const storageRef = ref(storage, `imgProfile/${currentUser.uid}/profile.jpg`); // Ajuste o caminho conforme necessário
+          const storageRef = ref(storage, `imgProfile/${currentUser.uid}/profile.jpg`); 
           const url = await getDownloadURL(storageRef);
           setProfileImage(url);
         } catch (error) {

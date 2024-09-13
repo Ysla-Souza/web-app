@@ -3,7 +3,6 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 
-// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBSzwd9nYoqYhi4cLDLUSrMGH1wM8P2kis",
   authDomain: "crisblack-5e865.firebaseapp.com",
