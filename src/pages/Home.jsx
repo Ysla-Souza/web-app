@@ -1,9 +1,8 @@
-// src/pages/Home.jsx
 import React from 'react';
-import Carousel from '../components/Carousel'; // Importa o Carousel
-import Highlights from '../components/Highlights/Highlights'; // Importa o Highlights
-import Categories from '../components/Categories/Categories'; // Importa o Categories
-import Promotions from '../components/Promotions/Promotions'; // Importa o Promotions
+import Carousel from '../components/Carousel'; 
+import Highlights from '../components/Highlights/Highlights'; 
+import Categories from '../components/Categories/Categories'; 
+import Promotions from '../components/Promotions/Promotions'; 
 
 function Home() {
   return (
@@ -15,17 +14,14 @@ function Home() {
         </p>
       </section>
 
-      {/* Seção do Carrossel */}
       <section className="carousel-section py-10 bg-white">
         <Carousel /> {/* Usa o componente Carousel */}
       </section>
 
-      {/* Destaques usando o componente Highlights */}
       <section className="highlights-section py-10 bg-gray-50">
         <Highlights /> {/* Usa o componente Highlights */}
       </section>
 
-      {/* Seção de Categorias */}
       <section className="categories-section py-10 bg-white">
         <Categories /> {/* Usa o componente Categories */}
       </section>

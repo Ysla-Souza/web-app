@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../firebase/firebase'; // Importando a função de fetch
+// import { fetchProducts } from '../firebase/firebase'; // Importando a função de fetch
 
-const Products = () => {
+export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Carregar os produtos ao montar o componente
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const productsList = await fetchProducts();
-        setProducts(productsList);
+        // const productsList = await ();
+        // setProducts(productsList);
       } catch (err) {
         setError('Erro ao carregar produtos');
       } finally {
         setLoading(false);
       }
     };
-
     loadProducts();
   }, []);
+
+  const handleAddToCart = (product) => {
+    console.log(`Produto ${product.name} adicionado ao carrinho.`);
+  };
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="flex flex-col items-center mt-12 w-full px-4 mt-60">
+    <div className="flex flex-col items-center mt-12 w-full px-4 mt-60 mb-10">
       <h2 className="text-center text-2xl font-normal mb-6 text-purple-500">
         Produtos
       </h2>
       <div className="flex flex-wrap justify-center gap-6">
         {products.map((product) => (
-          <div key={product.id} className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-64">
+          <div key={product.id} className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-64 cursor-pointer transition-shadow hover:shadow-2xl">
             {product.image && (
               <img
                 src={product.image}
@@ -55,10 +57,3 @@ const Products = () => {
     </div>
   );
 };
-
-// Função para adicionar o produto ao carrinho (simulação)
-const handleAddToCart = (product) => {
-  console.log(`Produto ${product.name} adicionado ao carrinho.`);
-};
-
-export default Products;

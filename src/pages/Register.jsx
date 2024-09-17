@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+// import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
-import { storage } from '../firebase/firebase'; // Certifique-se de importar o storage
+import { registerUser } from '../firebase/users';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -14,33 +14,12 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const auth = getAuth();
-
+  const handleRegister = async () => {
     setLoading(true);
-
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Atualizar o perfil com o nome
-      await updateProfile(user, { displayName: name });
-
-      if (profilePhoto) {
-        // Fazer upload da foto de perfil
-        const photoRef = ref(storage, `imgProfile/${user.uid}`);
-        await uploadBytes(photoRef, profilePhoto);
-
-        // Obter a URL da foto de perfil
-        const photoURL = await getDownloadURL(photoRef);
-        await updateProfile(user, { photoURL });
-      }
-
-setSuccess(true);
-setTimeout(() => {
-  navigate('/profile'); // Redireciona para a página de perfil
-}, 2000);
+      await registerUser(name, email, password, profilePhoto);
+      setSuccess(true);
+      setTimeout(() => navigate('/profile'), 2000);
     } catch (error) {
       setError('Falha ao criar conta, verifique suas credenciais');
     } finally {
@@ -58,10 +37,11 @@ setTimeout(() => {
           </div>
         )}
         {success && <p className="text-green-500 text-center">Registrado com sucesso!</p>}
-        {!loading && !success && (
-          <>
+        {
+          !loading && !success &&
+          <div>
             <h2 className="text-2xl font-semibold mb-6 text-center">Registrar-se</h2>
-            <form onSubmit={handleRegister} className="space-y-4">
+            <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium">Nome</label>
                 <input
@@ -102,14 +82,15 @@ setTimeout(() => {
               </div>
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <button
-                type="submit"
+                type="button"
+                onClick={ handleRegister }
                 className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors"
               >
                 Registrar-se
               </button>
-            </form>
-          </>
-        )}
+            </div>
+          </div>
+        }
       </div>
     </div>
   );

@@ -1,41 +1,41 @@
-// src/contexts/UserContext.jsx
-import React, { createContext, useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { storage } from '../firebase/firebase'; 
+// // src/contexts/UserContext.jsx
+// import React, { createContext, useState, useEffect } from 'react';
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+// import { storage } from '../firebase/firebase'; 
 
-const UserContext = createContext();
+// const UserContext = createContext();
 
-const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
+// const UserProvider = ({ children }) => {
+//   const [user, setUser] = useState(null);
+//   const [profileImage, setProfileImage] = useState(null);
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
+//   useEffect(() => {
+//     const auth = getAuth();
+//     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+//       setUser(currentUser);
 
-      if (currentUser) {
-        try {
-          const storageRef = ref(storage, `imgProfile/${currentUser.uid}/profile.jpg`); 
-          const url = await getDownloadURL(storageRef);
-          setProfileImage(url);
-        } catch (error) {
-          console.error("Erro ao obter a imagem de perfil:", error);
-        }
-      } else {
-        setProfileImage(null);
-      }
-    });
+//       if (currentUser) {
+//         try {
+//           const storageRef = ref(storage, `imgProfile/${currentUser.uid}/profile.jpg`); 
+//           const url = await getDownloadURL(storageRef);
+//           setProfileImage(url);
+//         } catch (error) {
+//           console.error("Erro ao obter a imagem de perfil:", error);
+//         }
+//       } else {
+//         setProfileImage(null);
+//       }
+//     });
 
-    return () => unsubscribe();
-  }, []);
+//     return () => unsubscribe();
+//   }, []);
 
-  return (
-    <UserContext.Provider value={{ user, profileImage }}>
-      {children}
-    </UserContext.Provider>
-  );
-};
+//   return (
+//     <UserContext.Provider value={{ user, profileImage }}>
+//       {children}
+//     </UserContext.Provider>
+//   );
+// };
 
-export { UserContext, UserProvider };
+// export { UserContext, UserProvider };

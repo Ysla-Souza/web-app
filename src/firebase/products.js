@@ -1,6 +1,5 @@
 import { firestore } from './firebase';
 
-// Função para obter produtos do Firestore
 export const getProducts = async () => {
   try {
     const snapshot = await firestore.collection('products').get();
@@ -14,7 +13,6 @@ export const getProducts = async () => {
   }
 };
 
-// Função para adicionar um novo produto ao Firestore
 export const addProduct = async (product) => {
   try {
     const docRef = await firestore.collection('products').add(product);

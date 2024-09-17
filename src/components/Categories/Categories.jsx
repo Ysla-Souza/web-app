@@ -13,23 +13,23 @@ const Categories = () => {
         Categorias
       </h2>
       <div className="flex flex-wrap justify-center gap-6">
-        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52">
+        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52 cursor-pointer">
           <img src={category1} alt="Categoria 1" className="w-full h-52 object-cover rounded-md mb-2" />
           <p className="text-lg text-gray-700">Categoria 1</p>
         </div>
-        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52">
+        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52 cursor-pointer">
           <img src={category2} alt="Categoria 2" className="w-full h-52 object-cover rounded-md mb-2" />
           <p className="text-lg text-gray-700">Categoria 2</p>
         </div>
-        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52">
+        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52 cursor-pointer">
           <img src={category3} alt="Categoria 3" className="w-full h-52 object-cover rounded-md mb-2" />
           <p className="text-lg text-gray-700">Categoria 3</p>
         </div>
-        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52">
+        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52 cursor-pointer">
           <img src={category4} alt="Categoria 4" className="w-full h-52 object-cover rounded-md mb-2" />
           <p className="text-lg text-gray-700">Categoria 4</p>
         </div>
-        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52">
+        <div className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-52 cursor-pointer">
           <img src={category5} alt="Categoria 5" className="w-full h-52 object-cover rounded-md mb-2" />
           <p className="text-lg text-gray-700">Categoria 5</p>
         </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchProducts } from '../firebase/firebase'; // Certifique-se de usar o caminho correto
+import { fetchProducts } from '../firebase/firebase'; 
 
 const useFetchProducts = () => {
   const [products, setProducts] = useState([]);

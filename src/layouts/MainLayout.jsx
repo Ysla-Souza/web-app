@@ -1,7 +1,6 @@
-// src/layouts/MainLayout.jsx
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
-import 'tailwindcss/tailwind.css'; // Importa o Tailwind CSS global
+import 'tailwindcss/tailwind.css'; 
 import Footer from '../components/Footer/Footer';
 
 const MainLayout = ({ children }) => {

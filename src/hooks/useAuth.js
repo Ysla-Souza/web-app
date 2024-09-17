@@ -1,4 +1,3 @@
-// src/hooks/useAuth.js
 import { useState } from 'react';
 import { registerUser } from '../firebase/auth';
 
@@ -10,7 +9,6 @@ const useAuth = () => {
     setLoading(true);
     try {
       await registerUser(email, password, displayName);
-      // Manejar sucesso
     } catch (err) {
       setError('Erro ao registrar o usuário.');
     }

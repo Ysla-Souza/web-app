@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirecionamento
-import { entrarComGoogle } from '../firebase/firebase.js'; // Importa a função para login com Google
+// import { entrarComGoogle } from '../firebase/firebase.js'; // Importa a função para login com Google
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -50,7 +50,7 @@ const Login = () => {
   // Função para login com Google
   const handleGoogleLogin = async () => {
     try {
-      await entrarComGoogle();
+      // await entrarComGoogle();
       // Redirecionar para a página de registro após login com Google
       navigate('/register');
     } catch (error) {
