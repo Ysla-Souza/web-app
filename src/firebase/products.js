@@ -1,23 +1,15 @@
-import { firestore } from './firebase';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import firebaseConfig from './connection';
 
-export const getProducts = async () => {
-  try {
-    const snapshot = await firestore.collection('products').get();
-    const products = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return products;
-  } catch (error) {
-    console.error("Erro ao obter produtos:", error);
-  }
-};
+export const fetchProducts = async () => {
+  const db = getFirestore(firebaseConfig);
+  const productsCollectionRef = collection(db, 'products');
+  const snapshot = await getDocs(productsCollectionRef);
+  
+  const products = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 
-export const addProduct = async (product) => {
-  try {
-    const docRef = await firestore.collection('products').add(product);
-    return docRef.id;
-  } catch (error) {
-    console.error("Erro ao adicionar produto:", error);
-  }
+  return products;
 };

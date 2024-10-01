@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-// import { fetchProducts } from '../firebase/firebase'; // Importando a função de fetch
+import { fetchProducts } from '../firebase/products'; // Importe a função para buscar produtos
 
-export default function Products() {
+export default function Products({ onAddToCart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        // const productsList = await ();
-        // setProducts(productsList);
+        const productsList = await fetchProducts(); // Chame a função de busca de produtos
+        setProducts(productsList); // Atualize o estado com os produtos
       } catch (err) {
         setError('Erro ao carregar produtos');
       } finally {
@@ -21,6 +22,7 @@ export default function Products() {
   }, []);
 
   const handleAddToCart = (product) => {
+    onAddToCart(product); // Chama a função passada como prop
     console.log(`Produto ${product.name} adicionado ao carrinho.`);
   };
 
@@ -47,7 +49,7 @@ export default function Products() {
             <p className="text-gray-900 font-bold">${product.price}</p>
             <button
               className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
-              onClick={() => handleAddToCart(product)}
+              onClick={() => handleAddToCart(product)} // Chama a função ao invés de onAddToCart
             >
               Adicionar ao Carrinho
             </button>

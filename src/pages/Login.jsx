@@ -1,161 +1,61 @@
-import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirecionamento
-// import { entrarComGoogle } from '../firebase/firebase.js'; // Importa a função para login com Google
+import React, { useEffect, useState } from 'react';
+import { fetchProducts } from '../firebase/products'; // Importe a função para buscar produtos
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Products({ onAddToCart }) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Para controlar a tela de carregamento
-  const [modalOpen, setModalOpen] = useState(false); // Para controlar a visibilidade do modal
-  const [resetEmail, setResetEmail] = useState(''); // Para o email de recuperação de senha
-  const [message, setMessage] = useState(''); // Para mensagens de sucesso ou erro
 
-  const navigate = useNavigate();
 
-  // Função para login
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const auth = getAuth();
-    setLoading(true);
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const productsList = await fetchProducts(); // Chame a função de busca de produtos
+        setProducts(productsList); // Atualize o estado com os produtos
+      } catch (err) {
+        setError('Erro ao carregar produtos');
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProducts();
+  }, []);
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('Login bem-sucedido');
-      setLoading(false);
-      // Redirecionar para a página inicial
-      navigate('/');
-    } catch (error) {
-      setError('Falha ao fazer login, verifique suas credenciais');
-      setLoading(false);
-    }
+  const handleAddToCart = (product) => {
+    onAddToCart(product); // Chama a função passada como prop
+    console.log(`Produto ${product.name} adicionado ao carrinho.`);
   };
 
-  // Função para enviar o e-mail de redefinição de senha
-  const handlePasswordReset = async () => {
-    const auth = getAuth();
-    try {
-      await sendPasswordResetEmail(auth, resetEmail);
-      setMessage('E-mail para redefinição de senha enviado!');
-      setModalOpen(false); // Fechar o modal após o envio
-      setResetEmail(''); // Limpar o campo de e-mail
-      setError('');
-    } catch (error) {
-      setError('Falha ao enviar e-mail de redefinição. Verifique o e-mail digitado.');
-      setMessage('');
-    }
-  };
-
-  // Função para login com Google
-  const handleGoogleLogin = async () => {
-    try {
-      // await entrarComGoogle();
-      // Redirecionar para a página de registro após login com Google
-      navigate('/register');
-    } catch (error) {
-      setError('Falha ao fazer login com Google');
-    }
-  };
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      {/* Tela de carregamento */}
-      {loading && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="loader">Carregando...</div>
-        </div>
-      )}
-
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96 mt-20">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2"
-            />
+    <div className="flex flex-col items-center mt-12 w-full px-4 mt-60 mb-10">
+      <h2 className="text-center text-2xl font-normal mb-6 text-purple-500">
+        Produtos
+      </h2>
+      <div className="flex flex-wrap justify-center gap-6">
+        {products.map((product) => (
+          <div key={product.id} className="flex flex-col items-center p-4 bg-white border border-gray-300 rounded-lg shadow-md w-64 cursor-pointer transition-shadow hover:shadow-2xl">
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-40 object-cover rounded-md mb-2"
+              />
+            )}
+            <p className="text-lg text-gray-700 mb-2">{product.name}</p>
+            <p className="text-gray-500 text-sm mb-2">{product.description}</p>
+            <p className="text-gray-900 font-bold">${product.price}</p>
+            <button
+              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
+              onClick={() => handleAddToCart(product)} // Chama a função ao invés de onAddToCart
+            >
+              Adicionar ao Carrinho
+            </button>
           </div>
-          <div>
-            <label className="block text-sm font-medium">Senha</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2"
-            />
-          </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          {message && <p className="text-green-500 text-sm">{message}</p>}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors"
-          >
-            Entrar
-          </button>
-        </form>
-
-        <div className="mt-4">
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-          >
-            Entrar com Google
-          </button>
-        </div>
-
-        <p className="mt-4 text-center text-gray-600">
-          <button
-            type="button"
-            onClick={() => setModalOpen(true)} // Abrir modal para redefinição de senha
-            className="text-purple-600 hover:underline"
-          >
-            Esqueci minha senha
-          </button>
-        </p>
-
-        <p className="mt-4 text-center text-gray-600">
-          Não tem uma conta? <a href="/register" className="text-purple-600 hover:underline">Registrar-se</a>
-        </p>
+        ))}
       </div>
-
-      {/* Modal para redefinição de senha */}
-      {modalOpen && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h3 className="text-xl font-semibold mb-4">Recuperar Senha</h3>
-            <label className="block text-sm font-medium">Digite seu e-mail</label>
-            <input
-              type="email"
-              value={resetEmail}
-              onChange={(e) => setResetEmail(e.target.value)}
-              required
-              className="mt-2 w-full border border-gray-300 rounded-md px-3 py-2"
-            />
-            <div className="flex justify-end mt-4">
-              <button
-                onClick={handlePasswordReset}
-                className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors mr-2"
-              >
-                Enviar
-              </button>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500 transition-colors"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
-
-export default Login;

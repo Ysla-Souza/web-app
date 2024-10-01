@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import newLogo from '../../assets/novalogo.png';
-import blackLogo from '../../assets/blackLogo.png'; // Certifique-se de que este arquivo exista
+import blackLogo from '../../assets/blackLogo.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const Navbar = () => {
+const Navbar = ({ cartCount }) => { // Recebe cartCount como prop
   const [isShrunk, setIsShrunk] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
+  const [authError, setAuthError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    //   setUser(currentUser); 
-    // });
+    const auth = getAuth();
 
-    // return () => unsubscribe(); 
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        setUser(null);
+        setAuthError('Usuário não autenticado ou e-mail não encontrado');
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsShrunk(true);
-      } else {
-        setIsShrunk(false);
-      }
+      setIsShrunk(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -59,16 +63,18 @@ const Navbar = () => {
         </ul>
 
         {/* Ícones no topo */}
-        <div className="flex space-x-8 mr-10">
+        <div className="flex space-x-8 mr-10 mt-1">
           <a href="#" aria-label="Pesquisar" onClick={toggleSearch} className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
-            <i className="fas fa-search" style={{ fontSize: '20px' }}></i>
+            <i className="fas fa-search" style={{ fontSize: '18px' }}></i>
           </a>
           <a href="#" aria-label="Perfil" onClick={handleProfileClick} className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
-            <i className="fas fa-user" style={{ fontSize: '20px' }}></i>
+            <i className="fas fa-user" style={{ fontSize: '18px' }}></i>
           </a>
-          <a href="#" aria-label="Carrinho" className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
-            <i className="fas fa-shopping-cart" style={{ fontSize: '20px' }}></i>
-          </a>
+          <Link to="/cart" aria-label="Carrinho" className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
+            <i className="fas fa-shopping-cart" style={{ fontSize: '18px' }}></i>
+            <span>{cartCount}</span> {/* Contador do carrinho */}
+          </Link>
+
         </div>
       </div>
 
@@ -83,9 +89,7 @@ const Navbar = () => {
           height: isShrunk ? '150px' : '250px',
         }}
       >
-
         <div className="container mx-auto flex justify-center items-center relative px-4">
-          {/* Logo sobre a imagem de fundo */}
           <img
             src={blackLogo}
             alt="Logo"
@@ -100,6 +104,9 @@ const Navbar = () => {
           <input type="text" placeholder="Buscar..." className="border-none p-2 mb-4 rounded-lg text-lg" />
         </div>
       </nav>
+
+      {/* Exibir erro de autenticação, se houver */}
+      {authError && <p className="text-red-500">{authError}</p>}
     </>
   );
 };
