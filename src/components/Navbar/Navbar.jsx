@@ -5,7 +5,7 @@ import newLogo from '../../assets/novalogo.png';
 import blackLogo from '../../assets/blackLogo.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const Navbar = ({ cartCount }) => { // Recebe cartCount como prop
+const Navbar = ({ cartCount }) => { 
   const [isShrunk, setIsShrunk] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [user, setUser] = useState({});
@@ -70,11 +70,14 @@ const Navbar = ({ cartCount }) => { // Recebe cartCount como prop
           <a href="#" aria-label="Perfil" onClick={handleProfileClick} className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
             <i className="fas fa-user" style={{ fontSize: '18px' }}></i>
           </a>
+
+          {/* Ícone do carrinho sempre visível */}
           <Link to="/cart" aria-label="Carrinho" className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
             <i className="fas fa-shopping-cart" style={{ fontSize: '18px' }}></i>
-            <span>{cartCount}</span> {/* Contador do carrinho */}
-          </Link>
 
+            {/* Exibe o contador somente se o usuário estiver logado */}
+            {user && <span>{cartCount}</span>}
+          </Link>
         </div>
       </div>
 
