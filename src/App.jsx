@@ -23,9 +23,9 @@ function App() {
       const existingProduct = prevItems.find(item => item.id === product.id);
       let updatedCart;
       if (existingProduct) {
-        updatedCart = prevItems.map(item => 
-          item.id === product.id 
-            ? { ...item, quantity: item.quantity + 1 } 
+        updatedCart = prevItems.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
@@ -86,10 +86,10 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/products" element={<Products onAddToCart={handleAddToCart} />} />
             <Route path="/cart" element={
-              <Cart 
-                cartItems={cartItems} 
-                onUpdateQuantity={handleUpdateQuantity} // Adicionando a função de atualizar quantidade
-                onRemoveFromCart={handleRemoveFromCart} 
+              <Cart
+                cartItems={cartItems}
+                onUpdateQuantity={handleUpdateQuantity}
+                onRemoveFromCart={handleRemoveFromCart}
               />
             } />
           </Routes>

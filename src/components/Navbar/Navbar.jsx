@@ -70,7 +70,7 @@ const Navbar = ({ cartCount }) => {
           <a href="#" aria-label="Perfil" onClick={handleProfileClick} className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
             <i className="fas fa-user" style={{ fontSize: '18px' }}></i>
           </a>
-
+    
           {/* Ícone do carrinho sempre visível */}
           <Link to="/cart" aria-label="Carrinho" className="text-[#ffffff] hover:text-gray-200 transition-colors duration-300">
             <i className="fas fa-shopping-cart" style={{ fontSize: '18px' }}></i>
